@@ -29,6 +29,7 @@ class ViewController: NSViewController {
                 self.readMessagesButton.isHidden = false
                 self.buttonHidden = 0
             }
+            
             return $0
         }
 
@@ -40,6 +41,26 @@ class ViewController: NSViewController {
         let height = rect!.size.height
         self.subLabel.setFrameSize(NSSize(width:width, height:height))
         
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (e) -> NSEvent? in
+            if (e.keyCode == 126) {
+                self.subLabel.alphaValue += 0.1
+            }
+            
+            if (e.keyCode == 125) {
+                self.subLabel.alphaValue -= 0.1
+            }
+            
+            if (e.keyCode == 123) {
+                self.subLabel.alphaValue -= 0.01
+            }
+            
+            if (e.keyCode == 124) {
+                self.subLabel.alphaValue -= 0.01
+            }
+
+            return e
+        }
+
     }
     
     @IBOutlet weak var subLabel: NSTextField!
@@ -75,6 +96,9 @@ class ViewController: NSViewController {
         
         let subMsg = String(repeating: msg + "    ", count: 100000)
         subLabel.stringValue = subMsg
+        // subLabel.textColor = NSColor.blue
+        subLabel.textColor = colorWithHexColorString(colorString: "0d0d0d")
+        subLabel.alphaValue = 0.03
         let window = NSApplication.shared.windows.first
         window?.ignoresMouseEvents = true
 
@@ -89,3 +113,23 @@ class ViewController: NSViewController {
 
 }
 
+func colorWithHexColorString(colorString: String) -> NSColor?
+{
+    var color: NSColor? = nil
+
+    var colorCode = UInt32()
+
+    var redByte:CGFloat = 255;
+    var greenByte:CGFloat = 255;
+    var blueByte: CGFloat = 255;
+
+    let scanner = Scanner(string: colorString)
+    if scanner.scanHexInt32(&colorCode) {
+        redByte = CGFloat(colorCode & 0xff0000)
+        greenByte = CGFloat(colorCode & 0x00ff00)
+        blueByte =  CGFloat(colorCode & 0xff)
+        color = NSColor(red: redByte, green: greenByte, blue: blueByte, alpha: 1.0)
+    }
+
+    return color
+}

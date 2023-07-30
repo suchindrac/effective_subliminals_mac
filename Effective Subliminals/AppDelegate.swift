@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // vc?.readMessagesButton.isHidden = true
         
         window?.ignoresMouseEvents = true
-        window?.backgroundColor = NSColor(red: 1, green: 1, blue: 1, alpha: 0.5)
+        window?.backgroundColor = NSColor(red: 1, green: 1, blue: 1, alpha: 0.35)
 
         let rect = NSScreen.main?.frame
         let width = rect!.size.width
@@ -72,5 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
     }
+    
+    
 }
 
