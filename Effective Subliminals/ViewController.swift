@@ -55,7 +55,7 @@ class ViewController: NSViewController {
             }
             
             if (e.keyCode == 124) {
-                self.subLabel.alphaValue -= 0.01
+                self.subLabel.alphaValue += 0.01
             }
 
             return e
